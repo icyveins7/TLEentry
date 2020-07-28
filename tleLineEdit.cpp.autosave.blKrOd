@@ -1,0 +1,30 @@
+#include "tleLineEdit.h"
+
+tleLineEdit::tleLineEdit(const QString &contents, QWidget *parent):QLineEdit(parent)
+{
+
+}
+
+void tleLineEdit::keyPressEvent(QKeyEvent *event){
+    if(event->key() == Qt::Key_Up){
+        qDebug()<<"up";
+    }
+    else if(event->key() == Qt::Key_Down){
+        qDebug()<<"down";
+    }
+    else if(event->key() == Qt::Key_Left){
+        qDebug()<<"left";
+    }
+    else if(event->key() == Qt::Key_Right){
+        qDebug()<<"right";
+    }
+    else{
+        // default handler for event
+        QLineEdit::keyPressEvent(event);
+    }
+}
+
+void tleLineEdit::setIdx(int in_row, int in_col){
+    row = in_row;
+    col = in_col;
+}
