@@ -65,6 +65,13 @@
      </layout>
     </item>
     <item>
+     <widget class="QPushButton" name="addTLEbtn">
+      <property name="text">
+       <string>Add TLE</string>
+      </property>
+     </widget>
+    </item>
+    <item>
      <widget class="QTextBrowser" name="linesViewer"/>
     </item>
    </layout>

@@ -16,6 +16,14 @@ public:
     void setIdx(int, int);
     void setVectorPtrs(QVector<tleLineEdit*>*, QVector<tleLineEdit*>*);
     void keyPressEvent(QKeyEvent *event);
+    bool event(QEvent *e) override;
+
+public slots:
+    void moveRight();
+    void moveLeft();
+    void moveUp();
+    void moveDown();
+    void moveWhenFilled();
 
 private:
     int row;

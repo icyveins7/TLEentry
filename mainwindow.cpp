@@ -69,7 +69,7 @@ void MainWindow::createLineEdits(){
     }
 
     // adjust grid layout spacing to make it look cleaner
-    ui->gridLayout->setHorizontalSpacing(3);
+    ui->gridLayout->setHorizontalSpacing(1);
 
     // first two of each row can be set and then disabled
     line1edits.at(0)->setText("1");
@@ -107,4 +107,54 @@ void MainWindow::nameCompleted(QString name){
     qDebug()<<knownGeoCatalogNumbers.at(idx);
     qDebug()<<knownGeoClassifications.at(idx);
     qDebug()<<knownGeoIntlDesignators.at(idx);
+}
+
+void MainWindow::calculateCheckSum(){
+    uint32_t checksum = 0;
+
+    char c;
+    QString s;
+    int d;
+
+    for (int i = 0; i < line1edits.size(); i++){
+        s = line1edits.at(i)->text();
+        if (s.size() > 0){ // only process if there's a character
+            c = s.at(0).toLatin1();
+            if (isdigit(c)){ // if it's a digit then output the digit
+                d = atoi(&c);
+                qDebug() << d;
+            }
+            else if (c == '.'){
+                d = 1;
+            }
+
+            checksum = checksum + d;
+        }
+    }
+
+    // repeat it for line 2, without the final one
+    for (int i = 0; i < line2edits.size() - 1; i++){
+        s = line2edits.at(i)->text();
+        if (s.size() > 0){ // only process if there's a character
+            c = s.at(0).toLatin1();
+            if (isdigit(c)){ // if it's a digit then output the digit
+                d = atoi(&c);
+                qDebug() << d;
+            }
+            else if (c == '.'){
+                d = 1;
+            }
+
+            checksum = checksum + d;
+        }
+    }
+
+    qDebug() << checksum;
+}
+
+
+void MainWindow::on_addTLEbtn_clicked()
+{
+    // verify the checksum
+    calculateCheckSum();
 }

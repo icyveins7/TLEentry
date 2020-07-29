@@ -27,10 +27,14 @@ public:
 
     void readKnownGeoFile();
     void createLineEdits();
+    void calculateCheckSum();
 
 public slots:
     void nameCompleted(QString);
     void autoFillSatConstants(int);
+
+private slots:
+    void on_addTLEbtn_clicked();
 
 private:
     QVector<tleLineEdit*> line1edits;
@@ -41,6 +45,9 @@ private:
     QStringList knownGeoIntlDesignators;
 
     QCompleter *namecompleter;
+
+    QString line1;
+    QString line2;
 
     Ui::MainWindow *ui;
 };
