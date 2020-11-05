@@ -1,1 +1,5 @@
 nohup python tlebot_main.py
+
+ps -ef | grep python
+
+then find the PID and kill PID
