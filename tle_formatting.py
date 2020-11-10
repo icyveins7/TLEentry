@@ -9,6 +9,60 @@ import re
 import datetime as dt
 import hashlib
 
+def TLEformatting(readmepath='tle.format'):
+    f = open(readmepath,'r')
+    l = f.readlines()
+    f.close()
+    
+    l = [i.strip() for i in l]
+    
+    linenumber = []
+    fieldnumber = []
+    labels = []
+    idx = []
+    
+    for i in range(len(l)):
+        line = l[i]
+        # get line number
+        linenumber.append(line[0])
+        # get field number
+        fieldnumber.append(line[2:4].strip())
+        # get idx
+        a = line[5:10]
+        thisidx = [int(i) for i in a.split('-')]
+        thisidx[0] = thisidx[0] - 1 # correct for starting index
+        idx.append(thisidx)
+        # get labels
+        labels.append(line[11:])
+        
+    return idx, labels, linenumber, fieldnumber
+
+def readTLE(tlepath, idx, labels, linenumber, fieldnumber, names):
+    f = open(tlepath,'r')
+    l = f.readlines()
+    f.close()
+    
+    l = [i.strip() for i in l]
+    
+    for name in names:
+        found = False
+        # start from 1st line
+        i = 0
+        while (i<len(l)):
+            if re.match(name, l[i]):
+                i = i + 1
+                linesRead = 0
+                # read more lines until the 2nd line is read (to avoid \r\n ambiguity)
+                while (linesRead < 2):
+                    if (len(l[i]) > 0):
+                        if 
+                    
+            else:
+                # increment
+                i = i + 1
+    
+    
+
 def bulletinFormatting(readmepath = 'readme.finals'):
     f = open(readmepath,'r')
     l = f.readlines()
@@ -33,7 +87,7 @@ def bulletinFormatting(readmepath = 'readme.finals'):
     
     return idx, labels
     
-def readBulletin(bullpath, idx, labels):
+def readBulletin(bullpath, idx, labels, t=dt.datetime.now()):
     f = open(bullpath,'r')
     l = f.readlines()
     f.close()
@@ -41,10 +95,9 @@ def readBulletin(bullpath, idx, labels):
     l = [i.strip() for i in l]
     
     # we look for the line corresponding to now
-    utcnow = dt.datetime.now()
-    y = utcnow.strftime('%y')
-    m = utcnow.strftime('%m')
-    d = utcnow.strftime('%d')
+    y = t.strftime('%y')
+    m = t.strftime('%m')
+    d = t.strftime('%d')
     # correction to turn starting 0s into blanks
     if y[0] == '0':
         y = ' ' + y[1]
