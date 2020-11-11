@@ -44,22 +44,53 @@ def readTLE(tlepath, idx, labels, linenumber, fieldnumber, names):
     
     l = [i.strip() for i in l]
     
+    tlelines = {}
+    tlevals = {}
+    
     for name in names:
         found = False
+        nd = {}
         # start from 1st line
         i = 0
-        while (i<len(l)):
+        while (i<len(l)): 
             if re.match(name, l[i]):
+
                 i = i + 1
                 linesRead = 0
                 # read more lines until the 2nd line is read (to avoid \r\n ambiguity)
-                while (linesRead < 2):
-                    if (len(l[i]) > 0):
-                        if 
+                while (linesRead < 3):
+                    if (len(l[i]) > 0): # ignore empty lines
+                        if l[i][0] == '1': # get 1st line
+                            linesRead = linesRead + 1
+                            nd['1'] = l[i]
+
+                        elif l[i][0] == '2': # get 2nd line
+                            linesRead = linesRead + 2
+                            nd['2'] = l[i]
+
+                    i = i + 1
+                    
+                # attach to the big dictionary
+                tlelines[name] = nd
+                found = True
                     
             else:
                 # increment
                 i = i + 1
+                
+        if not found: # then we just attach error
+            tlelines[name] = 0
+            # nothing else to do..
+        else: # we fill in the val strings
+            thisvals = {}
+            for k in range(len(fieldnumber)):
+                label = labels[k]
+                
+                thisvals[label] = tlelines[name][linenumber[k]][idx[k][0]:idx[k][1]]
+            
+            tlevals[name] = thisvals
+            
+    return tlelines, tlevals
     
     
 

@@ -10,7 +10,7 @@
 1 10 54-61 Drag Term aka Radiation Pressure or BSTAR (decimal point assumed)
 1 11 63-63 Ephemeris type (internal use only - always zero in distributed TLE data)
 1 12 65-68 Element set number. Incremented when a new TLE is generated for this object
-1 13 69-69 Checksum (modulo 10)
+1 13 69-69 Checksum, line 1 (modulo 10)
 2 1  03-07 Satellite catalog number
 2 2  09-16 Inclination (degrees)
 2 3  18-25 Right ascension of the ascending node (degrees)
@@ -19,4 +19,4 @@
 2 6  44-51 Mean Anomaly (degrees)
 2 7  53-63 Mean Motion (revolutions per day)
 2 8  64-68 Revolution number at epoch (revolutions)
-2 9  69-69 Checksum (modulo 10)
+2 9  69-69 Checksum, line 2 (modulo 10)
